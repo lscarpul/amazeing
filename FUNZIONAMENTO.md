@@ -72,7 +72,7 @@ Questo design modulare non solo rende il codice più facile da leggere e gestire
 In base alla pianificazione del lavoro tra Persona A (Motore) e Persona B (Applicazione), ecco un riepilogo dello stato dei lavori.
 
 ### ✅ Cosa abbiamo completato (Finito)
-1. **Logica di Generazione (`mazegen`)**: Algoritmo *Recursive Backtracker* implementato e tradotto in italiano.
+1. **Logica di Generazione (`mazegen`)**: Algoritmo *Recursive Backtracker* implementato.
 2. **Requisiti Speciali Labirinto**:
    - Inserimento forzato del pattern "42" (`_scolpisci_pattern_42`).
    - Evitamento proattivo di aree aperte grandi (max 2xN) (`_creerebbe_area_aperta`).

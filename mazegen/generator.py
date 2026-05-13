@@ -70,7 +70,7 @@ class GeneratoreLabirinto:
                 cella.visitata = False
         
         # 1. Scolpisci il pattern "42" prima di iniziare la generazione
-        self._scolpisci_pattern_42()
+        self._create_pattern_42()
 
         # 2. Trova una cella di partenza valida che non sia bloccata
         cella_partenza = self._trova_cella_partenza_valida(start_x, start_y)
@@ -81,7 +81,7 @@ class GeneratoreLabirinto:
         cella_partenza.visitata = True
         self._generazione_ricorsiva(cella_partenza)
 
-    def _scolpisci_pattern_42(self):
+    def _create_pattern_42(self):
         """Scolpisce il '42' nella griglia bloccando le celle."""
         altezza_pattern = 5
         larghezza_4 = 3
@@ -123,7 +123,7 @@ class GeneratoreLabirinto:
                     return self.griglia[y][x]
         return None
 
-    def _creerebbe_area_aperta(self, cella_attuale: Cella, cella_vicina: Cella) -> bool:
+    def _check_open_area_creation(self, cella_attuale: Cella, cella_vicina: Cella) -> bool:
         """
         Controlla se l'abbattimento del muro tra due celle creerebbe un'area aperta (es. un blocco 2x2 senza muri incrociati).
         Poiché i corridoi sono larghi 1, l'unico modo per avere uno spazio 3x3 è passare prima da un 2x2.
@@ -196,7 +196,7 @@ class GeneratoreLabirinto:
         for vicino in vicini:
             if not vicino.visitata:
                 # Controlla per impedire di creare aree aperte (es. 2x2 e conseguentemente 3x3)
-                if not self._creerebbe_area_aperta(cella_attuale, vicino):
+                if not self._check_open_area_creation(cella_attuale, vicino):
                     self._abbatti_muro(cella_attuale, vicino)
                     vicino.visitata = True
                     self._generazione_ricorsiva(vicino)
