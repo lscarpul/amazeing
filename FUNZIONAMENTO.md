@@ -80,13 +80,10 @@ In base alla pianificazione del lavoro tra Persona A (Motore) e Persona B (Appli
 4. **Struttura Base dell'App (`a_maze_ing.py`)**: Lettura file `config.txt`, gestione errori base e orchestrazione.
 5. **Esportatore Esadecimale (`a_maze_ing.py`)**: Traduzione dello stato dei muri della griglia in stringhe esadecimali bit-a-bit richieste dal PDF per l'output in `maze.txt`.
 6. **Infrastruttura**: Creazione di `Makefile`, `.gitignore` e `config.txt`.
+7. **Packaging del Modulo (Persona A)**: Creazione del file `pyproject.toml`, predisposizione degli entrypoint e generazione degli artefatti (`sdist` e `wheel`) nella cartella `dist/` per l'installazione semplificata via pip.
 
 ### 🚧 Cosa manca teoricamente (I Prossimi Passi)
-1. **Packaging del Modulo (Requisito Obbligatorio della *Persona A*)**:
-   - Trasformare la cartella `mazegen/` in un vero modulo riutilizzabile Python.
-   - Serve aggiungere i file `__init__.py` e `pyproject.toml` (oppure `setup.py`) per usare il pacchetto standard `build`.
-   - Generare fisicamente i file di libreria `.whl` (wheels) installabili via `pip`.
-2. **Visualizzazione Visiva/Interattiva (Requisito Obbligatorio della *Persona B*)**:
+1. **Visualizzazione Visiva/Interattiva (Requisito Obbligatorio della *Persona B*)**:
    - Creare un rendering ASCII su terminale (in `a_maze_ing.py`).
    - Aggiungere il "ciclo applicativo", dove il programma non muore subito, ma attende tasti in input per: *Rigenerare* (creare un nuovo maze) o *Mostrare/Nascondere* la via d'uscita a video.
 3. **Pulizia Linting & Test**: Far girare `make lint` per essere sicuri che la sintassi passi rigorosamente `mypy` (i tipi statici esatti) e `flake8` senza crash.

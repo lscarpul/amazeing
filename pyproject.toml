@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "amazeing"
+version = "0.1.0"
+description = "Generatore e risolutore di labirinti con stampa in formato ascii"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    { name = "lscarpul"}, { name = "enucci"}
+]
+license = { text = "42 school"}
+dependencies = []
+
+[project.scripts]
+a-maze-ing = "a_maze_ing:main"
+
+[tool.setuptools]
+py-modules = ["a_maze_ing"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["mazegen*"]

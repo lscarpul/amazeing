@@ -23,23 +23,45 @@ Install the required dependencies:
 make install
 ```
 
-### 2. Execution
+### 2. Installazione del Pacchetto (Packaging) e Utilizzo
 
-To run the program, use the `run` rule from the Makefile, which executes the main script with a default configuration file:
+Il progetto è stato pacchettizzato in modo da poter essere installato nel proprio ambiente Python. Gli artefatti si trovano nella cartella `dist/`.
+
+Per installare il pacchetto e il comando CLI:
+```bash
+# Esempio usando la wheel generata
+pip install dist/amazeing-0.1.0-py3-none-any.whl
+```
+
+Una volta installato, il programma espone un comando globale chiamato `a-maze-ing`.
+Puoi eseguirlo in questo modo da qualsiasi posizione del terminale:
+
+```bash
+a-maze-ing config.txt
+```
+
+Inoltre, il modulo `mazegen` diventa disponibile come vera e propria libreria per altri script Python:
+```python
+from mazegen.generator import MazeGenerator
+```
+
+### 3. Sviluppo e Testing
+
+Per eseguire lo script senza installare il pacchetto, puoi usare la regola `run` del Makefile:
 
 ```bash
 make run
 ```
 
-Or run it directly:
+O eseguirlo direttamente con python:
 
 ```bash
 python3 a_maze_ing.py config.txt
 ```
 
-### 3. Linting
+### 4. Linting
 
-To check the code against `flake8` and `mypy` standards:
+Per verificare che il codice rispetti gli standard (`flake8` e `mypy`):
 
 ```bash
 make lint
