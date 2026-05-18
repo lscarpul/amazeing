@@ -24,8 +24,8 @@ class GeneratoreLabirinto:
     # Pattern per il "4" e il "2" da scolpire nel labirinto.
     # 1 rappresenta un muro chiuso permanente, 0 uno spazio da generare.
     _PATTERN_4 = [
-        [1, 0, 1],
-        [1, 0, 1],
+        [1, 0, 0],
+        [1, 0, 0],
         [1, 1, 1],
         [0, 0, 1],
         [0, 0, 1],
@@ -129,6 +129,10 @@ class GeneratoreLabirinto:
 
             # Controlla per non unire percorsi che formino inavvertitamente
             # piazze enormi (se vuoi esserne sicuro)
+            # Non rimuovere muri che coinvolgono le celle bloccate (pattern 42)
+            if (cella.x, cella.y) in self.celle_bloccate or (cella_vicina.x, cella_vicina.y) in self.celle_bloccate:
+                continue
+
             if not self._check_open_area_creation(cella, cella_vicina):
                 self._abbatti_muro(cella, cella_vicina)
                 muri_rimossi += 1

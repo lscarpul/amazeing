@@ -81,8 +81,6 @@ In base alla pianificazione del lavoro tra Persona A (Motore) e Persona B (Appli
 5. **Esportatore Esadecimale (`a_maze_ing.py`)**: Traduzione dello stato dei muri della griglia in stringhe esadecimali bit-a-bit richieste dal PDF per l'output in `maze.txt`.
 6. **Infrastruttura**: Creazione di `Makefile`, `.gitignore` e `config.txt`.
 7. **Packaging del Modulo (Persona A)**: Creazione del file `pyproject.toml`, predisposizione degli entrypoint e generazione degli artefatti (`sdist` e `wheel`) nella cartella `dist/` per l'installazione semplificata via pip.
-
-### 🚧 Cosa manca teoricamente (I Prossimi Passi)
 1. **Visualizzazione Visiva/Interattiva (Requisito Obbligatorio della *Persona B*)**:
    - Creare un rendering ASCII su terminale (in `a_maze_ing.py`).
    - Aggiungere il "ciclo applicativo", dove il programma non muore subito, ma attende tasti in input per: *Rigenerare* (creare un nuovo maze) o *Mostrare/Nascondere* la via d'uscita a video.

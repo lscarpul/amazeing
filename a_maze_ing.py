@@ -1,5 +1,6 @@
 import sys
 from mazegen.generator import MazeGenerator
+from graf.printlab import render_interactive
 
 # Mappa per la conversione dei muri in valori binari per l'output esadecimale.
 # Ogni muro ha un valore di bit specifico come da requisiti.
@@ -9,6 +10,8 @@ WALL_TO_BIT = {
     'S': 4,  # Bit 2
     'W': 8,  # Bit 3
 }
+
+sys.setrecursionlimit(10000)
 
 
 def parse_config(config_file):
@@ -129,31 +132,50 @@ def main():
         if seed:
             seed = int(seed)
 
-        # --- Logica di Orchestrazione ---
-        print("1. Configurazione caricata. Inizio la generazione del labirinto...")
-
-        # 1. Crea un'istanza del generatore di labirinti con i parametri letti
+        # --- Logica di Scrittura File Iniziale ---
         maze_generator = MazeGenerator(width, height, seed, is_perfect)
-
-        # 2. Chiama il metodo per generare la struttura del labirinto
         maze_generator.generate()
-        print("2. Labirinto generato.")
+        maze_generator.solve(entry_coords, exit_coords)
+        write_maze_to_file(maze_generator, output_file, entry_coords, exit_coords)
 
-        # 3. Chiama il metodo per trovare il percorso più breve dall'entrata
-        # all'uscita
-        if maze_generator.solve(entry_coords, exit_coords):
-            print("3. Soluzione trovata.")
-        else:
-            print(
-                "3. Attenzione: Non è stata trovata una soluzione tra entrata e uscita.")
-
-        # 4. Scrive il labirinto generato e la soluzione nel file di output
-        write_maze_to_file(
-            maze_generator,
-            output_file,
-            entry_coords,
-            exit_coords)
-        print(f"4. Labirinto e soluzione scritti nel file '{output_file}'.")
+        # --- Ciclo Applicativo (Persona B) ---
+        show_path = False
+        color_scheme = 0
+        
+        while True:
+            # Crea un po' di spazio tra una stampa e l'altra
+            print("\n\n\n")
+            
+            # Stampa la matrice visiva
+            render_interactive(maze_generator, entry_coords, exit_coords, show_path, color_scheme)
+            
+            # Stampa menu testuale
+            print("==== A-Maze-ing ====")
+            print("Where you start from: 🏁 \nWhere you are going to:🏠 ")
+            print("1. Re-generate a new random maze (ignore given seed)")
+            print("2. Show/Hide path from entry to exit")
+            print("3. Rotate maze colors")
+            print("4. Quit")
+            
+            try:
+                choice = input("Choice? (1-4): ").strip()
+            except (EOFError, KeyboardInterrupt):
+                break
+                
+            if choice == '1':
+                # Nuova generazione, ignora il seed per garantirne uno nuovo
+                maze_generator = MazeGenerator(width, height, None, is_perfect)
+                maze_generator.generate()
+                maze_generator.solve(entry_coords, exit_coords)
+                write_maze_to_file(maze_generator, output_file, entry_coords, exit_coords)
+            elif choice == '2':
+                show_path = not show_path
+            elif choice == '3':
+                color_scheme = (color_scheme + 1) % 7
+            elif choice == '4':
+                break
+            else:
+                pass # Ignora scelte non valide
 
         print("\nOperazione completata con successo!")
 
