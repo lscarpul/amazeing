@@ -15,7 +15,7 @@ Il progetto è diviso in due componenti principali per massimizzare la chiarezza
         *   Orchestrare le chiamate al "motore" del labirinto.
         *   Formattare i dati ricevuti dal motore nel formato di output richiesto (esadecimale).
         *   Scrivere il file di output finale (`maze.txt`).
-        *   (In futuro) Gestire l'interfaccia utente e le interazioni.
+        *   Gestire l'interfaccia utente e le interazioni.
     *   **Conoscenza**: Non conosce i dettagli complessi su *come* generare o risolvere un labirinto, sa solo a chi chiederlo.
 
 2.  **Il Motore (L'"Ingegnere")**:
@@ -81,7 +81,10 @@ In base alla pianificazione del lavoro tra Persona A (Motore) e Persona B (Appli
 5. **Esportatore Esadecimale (`a_maze_ing.py`)**: Traduzione dello stato dei muri della griglia in stringhe esadecimali bit-a-bit richieste dal PDF per l'output in `maze.txt`.
 6. **Infrastruttura**: Creazione di `Makefile`, `.gitignore` e `config.txt`.
 7. **Packaging del Modulo (Persona A)**: Creazione del file `pyproject.toml`, predisposizione degli entrypoint e generazione degli artefatti (`sdist` e `wheel`) nella cartella `dist/` per l'installazione semplificata via pip.
-1. **Visualizzazione Visiva/Interattiva (Requisito Obbligatorio della *Persona B*)**:
-   - Creare un rendering ASCII su terminale (in `a_maze_ing.py`).
-   - Aggiungere il "ciclo applicativo", dove il programma non muore subito, ma attende tasti in input per: *Rigenerare* (creare un nuovo maze) o *Mostrare/Nascondere* la via d'uscita a video.
-3. **Pulizia Linting & Test**: Far girare `make lint` per essere sicuri che la sintassi passi rigorosamente `mypy` (i tipi statici esatti) e `flake8` senza crash.
+8. **Pattern '42' Ottimizzato**: Implementato il blocco statico delle celle centrali come da Requisito per impedire accessi e renderlo visibile nello spazio generato.
+9. **Visualizzazione Visiva/Interattiva (Persona B)**:
+   - Creato un rendering ASCII su terminale corretto per l'assimilazione direzionale del percorso tramite modulo `printlab.py`.
+   - Aggiunto il "ciclo applicativo" interattivo da terminale per rigenerare, visualizzare o ricolorare il labirinto e le direzioni della via di uscita con menù.
+
+### 🚧 Cosa manca teoricamente (I Prossimi Passi)
+1. **Pulizia Linting & Test**: Far girare `make lint` per essere sicuri che la sintassi passi rigorosamente `mypy` (i tipi statici esatti) e `flake8` senza crash.

@@ -7,12 +7,16 @@ MYPY_FLAGS = --warn-return-any --warn-unused-ignores --ignore-missing-imports --
 FLAKE_FLAGS = --max-line-length=150
 
 # --- Rules ---
-.PHONY: all clean install lint run debug
+.PHONY: all clean fclean re install lint run debug build
 
 all: install
 
 install:
 	$(PYTHON) -m pip install -r requirements.txt
+
+build:
+	$(PYTHON) -m pip install --upgrade build
+	$(PYTHON) -m build
 
 run:
 	$(PYTHON) a_maze_ing.py config.txt
@@ -28,3 +32,9 @@ clean:
 	find . -type f -name "*.pyc" -delete
 	find . -type d -name "__pycache__" -delete
 	rm -rf .mypy_cache
+	rm -rf maze.txt
+
+fclean: clean
+	rm -rf build/ dist/ *.egg-info
+
+re: fclean all

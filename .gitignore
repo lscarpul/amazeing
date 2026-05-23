@@ -5,5 +5,7 @@ build/
 dist/
 *.egg-info
 venv/
+.venv/
+.venv
 .env
 maze.txt

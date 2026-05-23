@@ -45,7 +45,16 @@ Inoltre, il modulo `mazegen` diventa disponibile come vera e propria libreria pe
 from mazegen.generator import MazeGenerator
 ```
 
-### 3. Sviluppo e Testing
+### 3. Rendering Interattivo e Comandi a Terminale
+
+Eseguendo `a-maze-ing config.txt` non solo verrà prodotto in silenzio il file esadecimale come da requisiti, ma si avvierà una "console grafica interattiva" che stamperà su terminale il labirinto, dandoti modo di interagirvi.
+Menù in esecuzione:
+- `[1]` **Re-generate**: Ripopola il blocco con una mappa random (ignora il SEED di config.txt riapplicando uno schema a caso).
+- `[2]` **Show/Hide path**: Mostra graficamente qual è l'esatto percorso (snake) più corto verso la soluzione calcolato dall'engine, tracciando passo a passo senza sbavature nord, est, sud e ovest.
+- `[3]` **Rotate Colors**: Evidenzia il labirinto con un tema di colori alternato per il terminale.
+- `[4]` **Quit**: Termina il loop.
+
+### 4. Sviluppo e Testing
 
 Per eseguire lo script senza installare il pacchetto, puoi usare la regola `run` del Makefile:
 
@@ -69,8 +78,8 @@ make lint
 
 ## Resources
 
--   **Maze Generation Algorithms**: [Wikipedia page on Maze Generation Algorithms](https://en.wikipedia.org/wiki/Maze_generation_algorithm) - A great overview of different algorithms.
--   **AI Usage**: AI (GitHub Copilot) was used to accelerate the initial boilerplate code generation, suggest type hints, and write docstrings. The core logic for the maze algorithms and application structure was designed and implemented manually.
+-   **Algoritmo di Generazione**: [Recursive Backtracker](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_backtracker).
+-   **Algoritmo di Risoluzione**: [Breadth-First Search (BFS)](https://en.wikipedia.org/wiki/Breadth-first_search).
 
 ---
-*This section will be completed as the project progresses.*
+
