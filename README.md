@@ -73,9 +73,8 @@ The module seamlessly manages state, avoids 3x3 empty zones dynamically, forces 
 
 ## Team and project management
 - **Roles**:
-  - `lscarpul`: Focused on the Reusable Module architecture, Recursive Backtracking logic, BFS solving algorithm, and constraints validation.
-  - `enucci`: Managed the Interactive UI visualizer, file I/O operations, error handling, packaging, and configuration parsing.
+  - `lscarpul`: Focused on the Reusable Module architecture, Recursive Backtracking logic, BFS solving algorithm, and constraints validation and packaging.
+  - `enucci`: Managed the Interactive UI visualizer, file I/O operations, error handling, and configuration parsing.
 - **Planning**: We outlined the core engine first, aiming to get basic hex output working in the first week. Then we spent the final days on the interactive viewer and packaging logic. Our planning evolved slightly when we had to completely rework our wall-deletion logic to dynamically prevent 3x3 empty zones.
 - **What worked well**: The separation of `mazegen` as a library from the main CLI application allowed parallel work without merging conflicts.
-- **What could be improved**: Testing could have been wider; we could have added automated `pytest` units instead of manually running scenarios against the edge cases.
 - **Tools**: We used **Git** for version control via GitHub, **Trello** for kanban-style task tracking, and **Mypy/Flake8** for continuous linting during the development process.
