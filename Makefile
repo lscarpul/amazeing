@@ -5,6 +5,8 @@ PYTHON = python3
 LINT_TARGETS = a_maze_ing.py mazegen/
 MYPY_FLAGS = --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
 FLAKE_FLAGS = --max-line-length=150
+TAR_NAME = mazegen.tar.gz
+TAR_SRC = mazegen
 
 # --- Rules ---
 .PHONY: all clean fclean re install lint run debug build
@@ -18,6 +20,9 @@ build:
 	$(PYTHON) -m pip install --upgrade build
 	$(PYTHON) -m build
 
+tar:
+	tar -czvf $(TAR_NAME) $(TAR_SRC)/
+	
 run:
 	$(PYTHON) a_maze_ing.py config.txt
 
@@ -35,6 +40,8 @@ clean:
 	rm -rf maze.txt
 
 fclean: clean
-	rm -rf build/ dist/ *.egg-info
+	rm -rf build/ dist/ *.egg-info $(TAR_NAME)
 
 re: fclean all
+
+
