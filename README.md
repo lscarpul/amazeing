@@ -68,7 +68,23 @@ O eseguirlo direttamente con python:
 python3 a_maze_ing.py config.txt
 ```
 
-### 4. Linting
+### 5. Compilazione pacchetto e Pulizia
+
+Puoi compilare un pacchetto wheel distribuibile (in `/dist`) eseguendo:
+```bash
+make build
+```
+
+Per pulire i file temporanei generati da Python (`.pyc`, `__pycache__`):
+```bash
+make clean
+```
+Mentre per cancellare anche le build del pacchetto (le directory `build/`, `dist/` ed `*.egg-info`):
+```bash
+make fclean
+```
+
+### 6. Linting
 
 Per verificare che il codice rispetti gli standard (`flake8` e `mypy`):
 
