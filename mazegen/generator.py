@@ -49,7 +49,7 @@ class GeneratoreLabirinto:
 
         self.griglia: List[List[Cella]] = []
         self.percorso_soluzione: Optional[str] = None
-        self.celle_bloccate: Set[Tuple[int, int]] = set()
+        self.cell_blocc: Set[Tuple[int, int]] = set()
         self._inizializza_griglia()
 
     def _inizializza_griglia(self) -> None:
@@ -112,19 +112,24 @@ class GeneratoreLabirinto:
             if not cella.muri[dir_casuale]:
                 continue
 
-            cell_vicina = None
+            cell_vicin = None
             if dir_casuale == 'N':
-                cell_vicina = self.griglia[y - 1][x]
+                cell_vicin = self.griglia[y - 1][x]
             elif dir_casuale == 'S':
-                cell_vicina = self.griglia[y + 1][x]
+                cell_vicin = self.griglia[y + 1][x]
             elif dir_casuale == 'E':
-                cell_vicina = self.griglia[y][x + 1]
+                cell_vicin = self.griglia[y][x + 1]
             elif dir_casuale == 'W':
-                cell_vicina = self.griglia[y][x - 1]
+                cell_vicin = self.griglia[y][x - 1]
 
-            if cell_vicina and not self._check_open_area_creation(cella,
-                                                                  cell_vicina):
-                self._abbatti_muro(cella, cell_vicina)
+            if (cella.x, cella.y) in self.cell_blocc:
+                continue
+            if cell_vicin and (cell_vicin.x, cell_vicin.y) in self.cell_blocc:
+                continue
+
+            if cell_vicin and not self._check_open_area_creation(cella,
+                                                                 cell_vicin):
+                self._abbatti_muro(cella, cell_vicin)
                 muri_rimossi += 1
 
     def _create_pattern_42(self) -> None:
@@ -150,7 +155,7 @@ class GeneratoreLabirinto:
                     cella = self.griglia[start_y +
                                          y_pattern][start_x + x_pattern]
                     cella.visitata = True
-                    self.celle_bloccate.add((cella.x, cella.y))
+                    self.cell_blocc.add((cella.x, cella.y))
 
         offset_x_2 = larghezza_4 + spazio
         for y_pattern, riga_pattern in enumerate(self._PATTERN_2):
@@ -160,7 +165,7 @@ class GeneratoreLabirinto:
                                          y_pattern][start_x +
                                                     offset_x_2 + x_pattern]
                     cella.visitata = True
-                    self.celle_bloccate.add((cella.x, cella.y))
+                    self.cell_blocc.add((cella.x, cella.y))
 
     def _trova_cella_partenza_valida(
             self, start_x: int, start_y: int) -> Optional[Cella]:

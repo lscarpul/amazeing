@@ -59,11 +59,17 @@ Quando un utente esegue il comando `python3 a_maze_ing.py config.txt`, si avvia 
         *   La prima volta che raggiunge la cella di uscita, ha la garanzia di aver trovato uno dei percorsi più brevi.
         *   Il percorso viene ricostruito e salvato come una stringa di direzioni (es. "EESW...").
 
-5.  **Finalizzazione e Scrittura**:
+5.  **Finalizzazione e Scrittura Numerica in Esadecimale**:
     *   `a_maze_ing.py` ora ha accesso al labirinto completo e alla sua soluzione tramite i metodi del `MazeGenerator`.
     *   La funzione `write_maze_to_file` viene chiamata.
-    *   Questa funzione itera sulla griglia del labirinto, converte lo stato dei muri di ogni cella in un valore esadecimale e scrive il risultato nel file `maze.txt`.
-    *   Infine, aggiunge al file la riga vuota, le coordinate di entrata/uscita e la stringa della soluzione.
+    *   Questa funzione itera sulla griglia del labirinto e converte lo stato dei muri di ogni cella in un valore esadecimale da 0 a F.
+    *   Il calcolo esadecimale avviene sommando i valori bit-a-bit delle pareti attive per una data cella: Nord (1), Sud (2), Est (4), Ovest (8). Se una cella ha muri a Nord e Ovest, il valore è 1 + 8 = 9. Se ha tutti i muri, è 1+2+4+8 = 15 (F in hex). Questa codifica produce la visualizzazione stringa nel sistema numerico di base sedici che scrive il risultato formattato nel file `maze.txt`.
+    *   Infine, aggiunge al file la riga vuota, le coordinate di entrata/uscita e la stringa (path) della soluzione.
+
+6.  **Visualizzazione Visiva Interattiva (`printlab.py`)**:
+    *   Finito l'export, parte un ciclo infinito di interazione nel terminale gestito tramite il modulo ausiliare `printlab.py`.
+    *   L'utente viene accolto con un'estetica a griglia renderizzata in ASCII per osservare visivamente lo scheletro in pianta testuale del labirinto.
+    *   Questo ciclo loopa costantemente aspettando che l'utente emani ordini numerici dal prompt. L'algoritmo di rendering adotta due file di set logici ASCII (block e color scheme) garantendo un'adeguata evidenziazione cromatica con un semplice comando o svelando a video l'effettivo "serpentone" che la BFS ha determinato come path ideale per collegare ingresso e uscita.
 
 Questo design modulare non solo rende il codice più facile da leggere e gestire, ma garantisce anche che il "motore" (`mazegen`) sia completamente indipendente e possa essere riutilizzato in qualsiasi altro progetto futuro che necessiti di un generatore di labirinti.
 
