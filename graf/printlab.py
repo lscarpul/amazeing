@@ -1,17 +1,17 @@
+"""
+Modulo per la visualizzazione a terminale del labirinto.
+Gestisce l'ingrandimento della logica a griglia e il rendering dei colori.
+"""
 from typing import List, Tuple, Any
 
 
-class ANSIColors:
-    RESET = "\033[0m"
-    WALL = "\033[97m"
-    PATH = "\033[40m"
-    START = "\033[45m"
-    EXIT = "\033[41m"
-    PATTERN_42 = "\033[47m"
-    SOLUTION = "\033[46m"
-
-
 def build_visual_matrix(hex_lines: List[str]) -> List[List[str]]:
+    """
+    Costruisce una matrice visiva raddoppiata scavandoci dentro.
+    I valori esadecimali vengono decodificati bit a bit:
+    Nord (1), Est (2), Sud (4), Ovest (8).
+    '⬜' rappresenta i muri intatti, '⬛' rappresenta i percorsi vuoti.
+    """
     if not hex_lines:
         return []
     logical_height = len(hex_lines)
@@ -43,6 +43,11 @@ def build_visual_matrix(hex_lines: List[str]) -> List[List[str]]:
 def render_interactive(maze_gen: Any, entry: Tuple[int, int],
                        exit_coords: Tuple[int, int], show_path: bool,
                        color_scheme: int) -> None:
+    """
+    Funzione iterata in loop per stampare a schermo il labirinto.
+    Applica le palette colori per visualizzare/nascondere la soluzione,
+    e risalta il blocco bloccato (pattern "42") distinguendo i suoi muri.
+    """
 
     hex_lines = []
     walls_map = {'N': 1, 'E': 2, 'S': 4, 'W': 8}
@@ -79,8 +84,8 @@ def render_interactive(maze_gen: Any, entry: Tuple[int, int],
                 vx -= 2
             visual_solution_cells.add((vx, vy))
 
-    celle_42 = maze_gen.celle_bloccate if hasattr(
-        maze_gen, 'celle_bloccate') else set()
+    celle_42 = maze_gen.cell_blocc if hasattr(
+        maze_gen, 'cell_blocc') else set()
 
     height = len(hex_lines)
     width = len(hex_lines[0]) if height > 0 else 0
@@ -113,6 +118,8 @@ def render_interactive(maze_gen: Any, entry: Tuple[int, int],
             color_solution = palette[(color_scheme + 2) % len(palette)]
 
             if touches_42 and char == '⬜':
+                char = color_wall42
+            elif center_coord in celle_42 and char == '⬜':
                 char = color_wall42
             elif center_coord in celle_42 and char == '⬛':
                 char = color_path42
